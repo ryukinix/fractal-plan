@@ -4,7 +4,7 @@ Some operations with geometric plan to induce a animation with music.
 
 #### DANGEER!
 
-All below things is mad stuff. Caution with your saneness.
+All below things is mad stuff. Caution to not lost your sanity (if you still have).
 
 ![mad-graph](fractal-plan.png)
 
@@ -56,11 +56,12 @@ __There's also action keys!__
 Self-destruction. What you are doing here? **DANGER!**
 
 ## Roadmap 
-  - [ ] Find the answer of universe. (easily)
-  	- [ ] Implement fractal geometric equations using complex numbers.
+  - [ ] Find the answer of this universe with hash #42. (easily)
+  	- [ ] Implement fractal geometric using complex numbers.
   	- [ ] Do evolution algorithm with number theory and numeric analysis
   	- [ ] Try understanding what are i'm trying do.
   - [X] Pull random musics of the user database
+  - [X] Do some graph iterative. (i do two)
 
 
 ## Credits
