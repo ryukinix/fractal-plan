@@ -37,6 +37,10 @@ __There's also action keys!__
 | ESC  |  Exit             |
 |  +   |  Plus vertex      |
 |  -   |  Minus vertex	   |
+|  ←   |  Left?            |
+|  ↑   |  Up?              |
+|  →   |  Right?!          |
+|  ↓   |  Down?!           |
 	
 ## Contributing
 
