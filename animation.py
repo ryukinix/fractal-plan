@@ -1,201 +1,205 @@
-#coding=utf-8
+# !/usr/bin/env python
+#  -*- coding: utf-8  -*-
+
 from __future__ import division, print_function
-import pygame, os
+import pygame
 from pygame.locals import *
 from math import sqrt, cos, sin, pi
 from random import randint as random
 from random import choice
 from getpass import getuser as usr
-from os.path import join
+from os import chdir, listdir
+from os.path import join, isdir, isfile, islink, expanduser
 from mimetypes import read_mime_types
 
 
-def tree_generator(path, lista = []):
-	files = os.listdir(path)
-	for f in files:
-		new_file = join(path, f)
-		if os.path.isdir(new_file) and not os.path.islink(new_file):
-			new_path = join(path, f)
-			os.chdir(new_path)
-			tree_generator(new_path, lista)
-			os.chdir('..')
-		elif os.path.isfile(f):
-			lista.append(join(path, f))
-		if len(lista) > 1000:
-			break
-	return lista
+def tree_generator(path, files=[]):
+    files_list = listdir(path)
+    for f in files_list:
+        new_file = join(path, f)
+        if isdir(new_file) and not islink(new_file):
+            new_path = join(path, f)
+            chdir(new_path)
+            tree_generator(new_path, files)
+            chdir('..')
+        elif isfile(f):
+            files.append(join(path, f))
+        if len(files) > 1000:
+            break
+    return files
+
 
 def notNull(a, b):
-	x = random(a, b)
-	if x != 0:
-		return x
-	return notNull(a, b)
+    x = random(a, b)
+    if x != 0:
+        return x
+    return notNull(a, b)
+
 
 def fib(n_vertex):
-	cont = 0
-	a, b = 0, 1
-	while n_vertex > cont:
-		a, b = b, a + b
-		cont += 1
-	return b
-def anglePolyg(n_vertex):
-	if n_vertex < 3:
-		n_vertex = 3
-	return ((n_vertex-2)*180)/n_vertex
+    cont = 0
+    a, b = 0, 1
+    while n_vertex > cont:
+        a, b = b, a + b
+        cont += 1
+    return b
 
 
+def angle_polyg(n_vertex):
+    if n_vertex < 3:
+        n_vertex = 3
+    return ((n_vertex-2)*180)/n_vertex
 
-#Colors  #R    #G   #B
+
+# Colors  +R    +G   +B
 WHITE = (255, 255, 255)
 GREEN = (0,   255,   0)
-BLUE =  (0,     0, 255)
+BLUE = (0,     0, 255)
 BLACK = (0,     0,   0)
-RED =   (255,   0,   0)
+RED = (255,   0,   0)
 
 pygame.init()
 info = pygame.display.Info()
-WIDTH, HEIGHT = info.current_w//2, info.current_h//2
+WIDTH, HEIGHT = int(info.current_w // 1.2) , int(info.current_h//1.2)
 size = WIDTH, HEIGHT
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption("Animation")
 
 pygame.mouse.set_visible(False)
 done = False
- 
+
 # Usado para gerenciar o quão rápido a tela é atualizada
 clock = pygame.time.Clock()
 
-#Numeros de pontos na espiral
+# Numeros de pontos na espiral
 n_vertex = 50
 dn = 10
 max_radius = WIDTH // 4
 
-#Determine a configuração inicial da espiral
+# Determine a configuração inicial da espiral
 angle_change = random(90, 180)
 
-#Cores da espiral
+# Cores da espiral
 red_value = random(0, 255)
 green_value = random(0, 255)
-blue_value  = random(0, 255)
+blue_value = random(0, 255)
 
-#Como as cores irão variar
+# Como as cores irão variar
 d_red = notNull(-2, 2)
 d_green = notNull(-2, 2)
 d_blue = notNull(-2, 2)
 
-#Sound
-musics = tree_generator('/home/%s/Música' %usr())
+# Sound
+musics = tree_generator('%s' % expanduser("~/Música"))
 pause = False
 dx, dy = 0, 0
 # -------- Main Program Loop -----------
 while not done:
-	for event in pygame.event.get(): # User did something
-		if event.type == QUIT: # If user clicked close
-			done = True # Flag that we are done so we exit this loop
-		if event.type == KEYDOWN:
-			if event.key == K_ESCAPE:
-				done = True
-			elif event.key == K_RETURN:
-				if pause == False:
-					position_music = float(pygame.mixer.music.get_pos()/1000)
-					pygame.mixer.music.pause()
-				else:
-					pygame.mixer.music.play(0, position_music)
-				pause = ~pause
-			elif event.key == K_TAB:
-				pygame.mixer.music.stop()
-				pause = False
-			elif event.key == K_BACKSPACE:
-				if n_vertex < 180 or n_vertex > 360:
-					dn = -dn
-				n_vertex += int(sin((n_vertex - 180) * 3.14/180)*5)
-			elif event.key == K_UP:
-				dy -= 5
-			elif event.key == K_LEFT:
-				dx -= 5
-			elif event.key == K_DOWN:
-				dy += 5
-			elif event.key == K_RIGHT:
-				dx += 5
-			elif event.key == K_EQUALS:
-				print("[variable]n_vertex: %d" %n_vertex)
-				n_vertex += 1
-			elif event.key == K_MINUS:
-				print("[variable]n_vertex: %d" %n_vertex)
-				n_vertex -= 1
+    for event in pygame.event.get():  # User did something
+        if event.type == QUIT:  # If user clicked close
+            done = True  # Flag that we are done so we exit this loop
+        if event.type == KEYDOWN:
+            if event.key == K_ESCAPE:
+                done = True
+            elif event.key == K_RETURN:
+                if pause is False:
+                    position_music = float(pygame.mixer.music.get_pos()/1000)
+                    pygame.mixer.music.pause()
+                else:
+                    pygame.mixer.music.play(0, position_music)
+                pause = ~pause
+            elif event.key == K_TAB:
+                pygame.mixer.music.stop()
+                pause = False
+            elif event.key == K_BACKSPACE:
+                if n_vertex < 180 or n_vertex > 360:
+                    dn = -dn
+                n_vertex += int(sin((n_vertex - 180) * 3.14/180)*5)
+            elif event.key == K_UP:
+                dy -= 5
+            elif event.key == K_LEFT:
+                dx -= 5
+            elif event.key == K_DOWN:
+                dy += 5
+            elif event.key == K_RIGHT:
+                dx += 5
+            elif event.key == K_EQUALS:
+                print("[variable]n_vertex: %d" % n_vertex)
+                n_vertex += 1
+            elif event.key == K_MINUS:
+                print("[variable]n_vertex: %d" % n_vertex)
+                n_vertex -= 1
 
-	#Play if not busy
-	if not pygame.mixer.music.get_busy() and pause == False:
-		try:
-			music = choice(musics)
-			print("[status]Loading: %s" %music)
-			pygame.mixer.music.load(music)
-			pygame.mixer.music.play(0, 0.0)
-		except pygame.error:
-			print("[error]Not possible to load this file: %s" %music)
-			continue
+    # Play if not busy
+    if not pygame.mixer.music.get_busy() and pause is False:
+        try:
+            music = choice(musics)
+            pygame.mixer.music.load(music)
+            pygame.mixer.music.play(0, 0.0)
+            print("[status]Loading: %s" % music)
+        except pygame.error:
+            print("[error]Not possible to load this file: %s" % music)
+            continue
 
-	screen.fill(BLACK)
-	lastX, lastY = WIDTH // 2, HEIGHT // 2 
-	
-	#the main graph
-	for i in range(n_vertex):
-		theta = float(angle_change * i)
-		radius = float(max_radius * sqrt(i / n_vertex))
-		x = int(WIDTH // 2 + radius*cos(theta))
-		y = int(HEIGHT // 2 + radius*sin(theta))
-		
-		color = (red_value, green_value, blue_value)
-		last_position = (lastX + dx, lastY - dy)
-		position = (x - dx, y + dy)
+    screen.fill(BLACK)
+    lastX, lastY = WIDTH // 2, HEIGHT // 2
 
-		pygame.draw.line(screen, color, last_position, position)
-		pygame.draw.line(screen, color, position, last_position)
-		
-		lastX = x
-		lastY = y
+    # the main graph
+    for i in range(n_vertex):
+        theta = float(angle_change * i)
+        radius = float(max_radius * sqrt(i / n_vertex))
+        x = int(WIDTH // 2 + radius*cos(theta))
+        y = int(HEIGHT // 2 + radius*sin(theta))
 
-	#the second graph
-	lastX, lastY = WIDTH * 7 // 8, HEIGHT * 9 // 11
-	color = (blue_value, red_value, green_value)
-	radius = 30
-	for h in range(3, 25):
-		for i in range(h + 1):
-			angle = abs(anglePolyg(h) - 180) * i *(angle_change ** 1.8)
-			xc = WIDTH * 7 // 8 + radius * cos(angle * pi / 180)
-			yc = HEIGHT * 9 // 11 + radius * sin(angle * pi / 180)
+        color = (red_value, green_value, blue_value)
+        last_position = (lastX + dx, lastY - dy)
+        position = (x - dx, y + dy)
 
-			pos = xc + dx, yc - dy
-			last_position = lastX -dx , lastY + dy
-			if i > 0:
-				pygame.draw.line(screen, color, pos, last_position)
-			
-			lastX = xc 
-			lastY = yc
-			
-		radius += 5 
+        pygame.draw.line(screen, color, last_position, position)
+        pygame.draw.line(screen, color, position, last_position)
 
+        lastX = x
+        lastY = y
 
-	#Se as cores estão fora do escopo[0,255], mude o sentido dos acréscimo
-	if red_value + d_red < 0 or red_value + d_red > 255:
-		d_red = -d_red
-	if green_value + d_green < 0 or green_value + d_green > 255:
-		d_green = -d_green
-	if blue_value + d_blue < 0 or blue_value + d_blue > 255:
-		d_blue = -d_blue
+    # the second graph
+    lastX, lastY = WIDTH * 7 // 8, HEIGHT * 9 // 11
+    color = (blue_value, red_value, green_value)
+    radius = 50
+    for h in range(3, n_vertex // 3):
+        for i in range(h + 1):
+            angle = abs(angle_polyg(h) - 180) * i * (angle_change ** 1.8)
+            xc = WIDTH * 7 // 8 + radius * cos(angle * pi / 180)
+            yc = HEIGHT * 9 // 11 + radius * sin(angle * pi / 180)
 
-	#I3 // 4ncremento de cores
-	red_value += d_red
-	green_value += d_green
-	blue_value += d_blue
+            pos = xc + dx, yc - dy
+            last_position = lastX - dx, lastY + dy
 
-	angle_change += 0.0001
+            if i > 0:
+                pygame.draw.line(screen, color, pos, last_position)
 
-	
-	# --- seguir em frente e atualizando a tela com o que foi desenhado
-	pygame.display.flip()
-	# --- Limita para 60 frames por segundo
-	clock.tick(60)
+            lastX = xc
+            lastY = yc
+
+        radius += 5
+
+    # Se as cores estão fora do escopo[0,255], mude o sentido dos acréscimo
+    if red_value + d_red < 0 or red_value + d_red > 255:
+        d_red = -d_red
+    if green_value + d_green < 0 or green_value + d_green > 255:
+        d_green = -d_green
+    if blue_value + d_blue < 0 or blue_value + d_blue > 255:
+        d_blue = -d_blue
+
+    # Incremento de cores
+    red_value += d_red
+    green_value += d_green
+    blue_value += d_blue
+
+    angle_change += 0.0001
+
+    # --- seguir em frente e atualizando a tela com o que foi desenhado
+    pygame.display.flip()
+    # --- Limita para 60 frames por segundo
+    clock.tick(60)
 
 pygame.quit()
-
