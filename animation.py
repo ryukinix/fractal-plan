@@ -124,10 +124,10 @@ while not done:
             elif event.key == K_RIGHT:
                 dx += 5
             elif event.key == K_EQUALS:
-                print("[variable]n_vertex: %d" % n_vertex)
+                print("[operation]+n_vertex: %d" % n_vertex)
                 n_vertex += 1
             elif event.key == K_MINUS:
-                print("[variable]n_vertex: %d" % n_vertex)
+                print("[operation]-n_vertex: %d" % n_vertex)
                 n_vertex -= 1
 
     # Play if not busy
@@ -136,7 +136,7 @@ while not done:
             music = choice(musics)
             pygame.mixer.music.load(music)
             pygame.mixer.music.play(0, 0.0)
-            print("[status]Loading: %s" % music)
+            print("[operation]Loading: %s" % music)
         except pygame.error:
             print("[error]Not possible to load this file: %s" % music)
             continue
