@@ -17,7 +17,7 @@ def tree_generator(path, files=[]):
     files_list = listdir(path)
     for f in files_list:
         new_file = join(path, f)
-        if isdir(new_file) and not islink(new_file):
+        if isdir(new_file):
             new_path = join(path, f)
             chdir(new_path)
             tree_generator(new_path, files)
@@ -60,7 +60,7 @@ RED = (255,   0,   0)
 
 pygame.init()
 info = pygame.display.Info()
-WIDTH, HEIGHT = int(info.current_w // 1.2) , int(info.current_h//1.2)
+WIDTH, HEIGHT = int(info.current_w // 1.2), int(info.current_h//1.2)
 size = WIDTH, HEIGHT
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption("Animation")
