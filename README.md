@@ -52,8 +52,10 @@ __There's also action keys!__
 Self-destruction. What you are doing here? **DANGER!**
 
 ## Roadmap 
-  - [ ] Implement fractal geometric equations using complex numbers.
   - [ ] Find the answer of universe. (easily)
+  	- [ ] Implement fractal geometric equations using complex numbers.
+  	- [ ] Do evolution algorithm with number theory and numeric analysis
+  	- [ ] Try understanding what are i'm trying do.
   - [X] Pull random musics of the user database
 
 
