@@ -1,16 +1,16 @@
 # Fractal-plan
 
-Some operations with geometric plan to induce a animation with music.
+This repository shows some operations with plane geometry that induces to an animation with music.
 
 #### DANGEER!
 
-All below things is mad stuff. Caution to not lost your sanity (if you still have).
+Everything you'll see here is a lot of **mad** stuff. Careful to not lose your sanity (if you still have).
 
-![mad-graph](fractal-plan.png)
+![crazy-graph](fractal-plan.png)
 
 ## Dependency
 
-You do **need** of:
+You will **need** of:
   * [Python](https://www.python.org/)
   * [Pygame](http://www.pygame.org/download.shtml)
 
@@ -28,9 +28,9 @@ To install pygame in linux debian-based you have two options:
 
 ## Usage
 
-This a beautiful thing. Why you don't only execute this? Fucking explanation. Just execute!
+This a beautiful thing. Why you don't only execute this? Fuck the explanation. Just execute!
 
-__There's also action keys!__
+__These are the fuckin' action keys:__
 
 | Key  |      Action       |
 |------| ----------------  |
@@ -40,28 +40,28 @@ __There's also action keys!__
 |  ←   |  Left?            |
 |  ↑   |  Up?              |
 |  →   |  Right?!          |
-|  ↓   |  Down?!           |
+|  ↓   |  Down?            |
 	
 ## Contributing
 
-0. Try understanding this code and your propose (i would't know to say)
+0. Understand this code and your propose (I wouldn't know tell).
 1. Fork it!
 2. Create your feature branch: `git checkout -b my-delicious-feature`
 3. Commit your changes: `git commit -am 'Add some delicious'`
 4. Push to the branch: `git push origin my-delicious-feature`
-5. Submit a pull request :D (if i think is good, i will merge)
+5. Submit a pull request :D (if I believe this is a reasonable _PR_, then I'll merge)
 
 ## History
 
-Self-destruction. What you are doing here? **DANGER!**
+Self-destruction. What are you still doing here? Go away!
 
 ## Roadmap 
-  - [ ] Find the answer of this universe with hash #42. (easily)
-  	- [ ] Implement fractal geometric using complex numbers.
-  	- [ ] Do evolution algorithm with number theory and numeric analysis
-  	- [ ] Try understanding what are i'm trying do.
-  - [X] Pull random musics of the user database
-  - [X] Do some graph iterative. (i do two)
+  - [ ] Find answer of the multiverse with hash #42 (weightless).
+  	- [ ] Implement a representation of fractal geometry with the set of complex numbers.
+  	- [ ] Encode a genetic algorithm with number theory and numerical analysis. 
+  	- [ ] Try understand what the main fuckin' developer is doing.
+  - [X] Pull random musics of the user data.
+  - [X] Make some interactive graph (I made two).
 
 
 ## Credits
