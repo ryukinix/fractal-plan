@@ -10,7 +10,7 @@ from random import choice
 from getpass import getuser as usr
 from os import chdir, listdir
 from os.path import join, isdir, isfile, islink, expanduser
-from mimetypes import read_mime_types
+from mimetypes import guess_type
 
 
 def tree_generator(path, files=[]):
@@ -23,7 +23,9 @@ def tree_generator(path, files=[]):
             tree_generator(new_path, files)
             chdir('..')
         elif isfile(f):
-            files.append(join(path, f))
+            mime = guess_type(f)[0]
+            if mime is not None and 'audio' in mime:
+                files.append(new_file)
         if len(files) > 1000:
             break
     return files
@@ -48,7 +50,7 @@ def fib(n_vertex):
 def angle_polyg(n_vertex):
     if n_vertex < 3:
         n_vertex = 3
-    return ((n_vertex-2)*180)/n_vertex
+    return ((n_vertex - 2) * 180) / n_vertex
 
 
 # Colors  +R    +G   +B
@@ -60,7 +62,7 @@ RED = (255,   0,   0)
 
 pygame.init()
 info = pygame.display.Info()
-WIDTH, HEIGHT = int(info.current_w // 1.2), int(info.current_h//1.2)
+WIDTH, HEIGHT = int(info.current_w // 1.2), int(info.current_h // 1.2)
 size = WIDTH, HEIGHT
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption("Animation")
@@ -103,7 +105,7 @@ while not done:
                 done = True
             elif event.key == K_RETURN:
                 if pause is False:
-                    position_music = float(pygame.mixer.music.get_pos()/1000)
+                    position_music = float(pygame.mixer.music.get_pos() / 1000)
                     pygame.mixer.music.pause()
                 else:
                     pygame.mixer.music.play(0, position_music)
@@ -114,7 +116,7 @@ while not done:
             elif event.key == K_BACKSPACE:
                 if n_vertex < 180 or n_vertex > 360:
                     dn = -dn
-                n_vertex += int(sin((n_vertex - 180) * 3.14/180)*5)
+                n_vertex += int(sin((n_vertex - 180) * 3.14 / 180) * 5)
             elif event.key == K_UP:
                 dy -= 5
             elif event.key == K_LEFT:
@@ -148,8 +150,8 @@ while not done:
     for i in range(n_vertex):
         theta = float(angle_change * i)
         radius = float(max_radius * sqrt(i / n_vertex))
-        x = int(WIDTH // 2 + radius*cos(theta))
-        y = int(HEIGHT // 2 + radius*sin(theta))
+        x = int(WIDTH // 2 + radius * cos(theta))
+        y = int(HEIGHT // 2 + radius * sin(theta))
 
         color = (red_value, green_value, blue_value)
         last_position = (lastX + dx, lastY - dy)
@@ -201,5 +203,4 @@ while not done:
     pygame.display.flip()
     # --- Limita para 60 frames por segundo
     clock.tick(60)
-
 pygame.quit()
