@@ -1,6 +1,6 @@
 # Fractal-plan
 
-This repository shows some operations with plane geometry that induces to an animation with music.
+This repository shows some operations with plane geometry (for now) that induces to an animation with music.
 
 #### DANGEER!
 
