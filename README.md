@@ -69,4 +69,4 @@ Self-destruction. What are you still doing here? Go away!
 
 ## License
 
-MIT 
+Creative Commons
