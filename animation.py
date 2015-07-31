@@ -70,29 +70,28 @@ pygame.display.set_caption("Animation")
 pygame.mouse.set_visible(False)
 done = False
 
-# Usado para gerenciar o quão rápido a tela é atualizada
 clock = pygame.time.Clock()
 
-# Numeros de pontos na espiral
+# Numbers of vertexes on the spiral
 n_vertex = 50
 dn = 10
 max_radius = WIDTH // 4
 
-# Determine a configuração inicial da espiral
+# Determine the configuration of initial spiral
 angle_change = random(90, 180)
 
-# Cores da espiral
+# Colors of spiral
 red_value = random(0, 255)
 green_value = random(0, 255)
 blue_value = random(0, 255)
 
-# Como as cores irão variar
+# How the colors will are change
 d_red = notNull(-2, 2)
 d_green = notNull(-2, 2)
 d_blue = notNull(-2, 2)
 
 # Sound
-musics = tree_generator('%s' % expanduser("~/Música"))
+musics = tree_generator('%s' % expanduser("~/"))
 pause = False
 dx, dy = 0, 0
 # -------- Main Program Loop -----------
@@ -184,7 +183,7 @@ while not done:
 
         radius += 5
 
-    # Se as cores estão fora do escopo[0,255], mude o sentido dos acréscimo
+    # Change sense if the colors are out of the range(0, 255)
     if red_value + d_red < 0 or red_value + d_red > 255:
         d_red = -d_red
     if green_value + d_green < 0 or green_value + d_green > 255:
@@ -192,15 +191,13 @@ while not done:
     if blue_value + d_blue < 0 or blue_value + d_blue > 255:
         d_blue = -d_blue
 
-    # Incremento de cores
+    # Colors increment
     red_value += d_red
     green_value += d_green
     blue_value += d_blue
 
     angle_change += 0.0001
 
-    # --- seguir em frente e atualizando a tela com o que foi desenhado
     pygame.display.flip()
-    # --- Limita para 60 frames por segundo
     clock.tick(60)
 pygame.quit()
