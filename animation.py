@@ -1,4 +1,4 @@
-# !/usr/bin/env python
+# !/usr/bin/env python2
 #  -*- coding: utf-8  -*-
 
 from __future__ import division, print_function
@@ -7,9 +7,8 @@ from pygame.locals import *
 from math import sqrt, cos, sin, pi
 from random import randint as random
 from random import choice
-from getpass import getuser as usr
 from os import chdir, listdir
-from os.path import join, isdir, isfile, islink, expanduser
+from os.path import join, isdir, isfile, expanduser
 from mimetypes import guess_type
 
 
