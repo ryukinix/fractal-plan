@@ -1,4 +1,4 @@
-# !/usr/bin/env python2
+#!/usr/bin/env python2
 #  -*- coding: utf-8  -*-
 
 from __future__ import division, print_function
@@ -12,14 +12,14 @@ from os.path import join, isdir, isfile, expanduser
 from mimetypes import guess_type
 
 
-def tree_generator(path, files=[]):
+def music_generator(path, files=[]):
     files_list = listdir(path)
     for f in files_list:
         new_file = join(path, f)
         if isdir(new_file):
             new_path = join(path, f)
             chdir(new_path)
-            tree_generator(new_path, files)
+            music_generator(new_path, files)
             chdir('..')
         elif isfile(f):
             mime = guess_type(f)[0]
@@ -30,11 +30,11 @@ def tree_generator(path, files=[]):
     return files
 
 
-def notNull(a, b):
+def not_null(a, b):
     x = random(a, b)
     if x != 0:
         return x
-    return notNull(a, b)
+    return not_null(a, b)
 
 
 def fib(n_vertex):
@@ -85,12 +85,12 @@ green_value = random(0, 255)
 blue_value = random(0, 255)
 
 # How the colors will are change
-d_red = notNull(-2, 2)
-d_green = notNull(-2, 2)
-d_blue = notNull(-2, 2)
+d_red = not_null(-2, 2)
+d_green = not_null(-2, 2)
+d_blue = not_null(-2, 2)
 
 # Sound
-musics = tree_generator('%s' % expanduser("~/"))
+musics = music_generator('%s' % expanduser("~/"))
 pause = False
 dx, dy = 0, 0
 # -------- Main Program Loop -----------
@@ -136,7 +136,7 @@ while not done:
             music = choice(musics)
             pygame.mixer.music.load(music)
             pygame.mixer.music.play(0, 0.0)
-            print("[operation]Loading: %s" % music)
+            print("[operation]Loaded: %s" % music)
         except pygame.error:
             print("[error]Not possible to load this file: %s" % music)
             continue
