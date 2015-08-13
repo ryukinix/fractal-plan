@@ -34,39 +34,23 @@ def not_null(a, b):
     return not_null(a, b)
 
 
-def fib(n_vertex):
-    cont = 0
-    a, b = 0, 1
-    while n_vertex > cont:
-        a, b = b, a + b
-        cont += 1
-    return b
-
-
 def angle_polyg(n_vertex):
     if n_vertex < 3:
         n_vertex = 3
     return ((n_vertex - 2) * 180) / n_vertex
 
 
-# Colors  +R    +G   +B
-WHITE = (255, 255, 255)
-GREEN = (0,   255,   0)
-BLUE = (0,     0, 255)
-BLACK = (0,     0,   0)
-RED = (255,   0,   0)
-
+# Setup
 pygame.init()
 info = pygame.display.Info()
+clock = pygame.time.Clock()
 WIDTH, HEIGHT = int(info.current_w // 1.2), int(info.current_h // 1.2)
 size = WIDTH, HEIGHT
 screen = pygame.display.set_mode(size)
+
 pygame.display.set_caption("Animation")
-
 pygame.mouse.set_visible(False)
-done = False
 
-clock = pygame.time.Clock()
 
 # Numbers of vertexes on the spiral
 n_vertex = 50
@@ -87,10 +71,12 @@ d_green = not_null(-2, 2)
 d_blue = not_null(-2, 2)
 
 # Sound
-musics = music_generator('%s' % expanduser("~/Music"))
+musics = music_generator('%s' % expanduser("~/"))
 pause = False
 dx, dy = 0, 0
+
 # -------- Main Program Loop -----------
+done = False
 while not done:
     for event in pygame.event.get():  # User did something
         if event.type == QUIT:  # If user clicked close
@@ -163,7 +149,7 @@ while not done:
     color = (blue_value, red_value, green_value)
     radius = 50
     for h in range(3, n_vertex // 3):
-        for i in range(h + 1):
+        for i in range(1, h + 1):
             angle = abs(angle_polyg(h) - 180) * i * (angle_change ** 1.8)
             xc = WIDTH * 7 // 8 + radius * cos(angle * pi / 180)
             yc = HEIGHT * 9 // 11 + radius * sin(angle * pi / 180)
@@ -171,8 +157,7 @@ while not done:
             pos = xc + dx, yc - dy
             last_position = lastX - dx, lastY + dy
 
-            if i > 0:
-                pygame.draw.line(screen, color, pos, last_position)
+            pygame.draw.line(screen, color, pos, last_position)
 
             lastX = xc
             lastY = yc
