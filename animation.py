@@ -6,28 +6,25 @@ import pygame
 from pygame.locals import *
 from math import sqrt, cos, sin, pi
 from random import randint as random
-from random import choice
-from os import chdir, listdir
+from random import shuffle
+from os import listdir
 from os.path import join, isdir, isfile, expanduser
 from mimetypes import guess_type
 
 
-def music_generator(path, files=[]):
+def music_generator(path):
     files_list = listdir(path)
+    shuffle(files_list)
     for f in files_list:
         new_file = join(path, f)
-        if isdir(new_file):
-            new_path = join(path, f)
-            chdir(new_path)
-            music_generator(new_path, files)
-            chdir('..')
-        elif isfile(f):
+        if isfile(new_file):
             mime = guess_type(f)[0]
             if mime is not None and 'audio' in mime:
-                files.append(new_file)
-        if len(files) > 1000:
-            break
-    return files
+                yield new_file
+        elif isdir(new_file):
+            new_path = join(path, f)
+            for other_music in music_generator(new_path):
+                yield other_music
 
 
 def not_null(a, b):
@@ -90,7 +87,7 @@ d_green = not_null(-2, 2)
 d_blue = not_null(-2, 2)
 
 # Sound
-musics = music_generator('%s' % expanduser("~/"))
+musics = music_generator('%s' % expanduser("~/Music"))
 pause = False
 dx, dy = 0, 0
 # -------- Main Program Loop -----------
@@ -133,7 +130,7 @@ while not done:
     # Play if not busy
     if not pygame.mixer.music.get_busy() and pause is False:
         try:
-            music = choice(musics)
+            music = next(musics)
             pygame.mixer.music.load(music)
             pygame.mixer.music.play(0, 0.0)
             print("[operation]Loaded: %s" % music)
