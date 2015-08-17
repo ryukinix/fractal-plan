@@ -29,6 +29,7 @@ To install pygame in linux debian-based you have two options:
 ## Usage
 
 This a beautiful thing. Why you don't only execute this? Fuck the explanation. Just execute!
+  * `python fractal.py`
 
 __These are the fuckin' action keys:__
 

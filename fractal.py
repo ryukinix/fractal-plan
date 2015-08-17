@@ -51,6 +51,9 @@ screen = pygame.display.set_mode(size)
 pygame.display.set_caption("Animation")
 pygame.mouse.set_visible(False)
 
+# Some colors
+BLACK = (0, 0, 0)
+
 
 # Numbers of vertexes on the spiral
 n_vertex = 50
