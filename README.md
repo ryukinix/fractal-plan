@@ -11,25 +11,27 @@ Everything you'll see here is a lot of **mad** stuff. Careful to not lose your s
 ## Dependency
 
 You will **need** of:
-  * [Python](https://www.python.org/)
-  * [Pygame](http://www.pygame.org/download.shtml)
+
+* [Python](https://www.python.org/)
+* [Pygame](http://www.pygame.org/download.shtml)
 
 To install pygame in linux debian-based you have two options:
 
-  * Using **apt**:
-    ```bash
-    sudo apt-get install python-pygame
-    ```
- 
-  * Using **pip**:
-    ```bash
-    sudo pip install pygame
-    ```
+* Using **apt**:
+  ```bash
+  sudo apt-get install python-pygame
+  ```
+
+* Using **pip**:
+  ```bash
+  sudo pip install pygame
+  ```
 
 ## Usage
 
 This a beautiful thing. Why you don't only execute this? Fuck the explanation. Just execute!
-  * `python fractal.py`
+  
+* `python fractal.py`
 
 __These are the fuckin' action keys:__
 
@@ -57,17 +59,18 @@ __These are the fuckin' action keys:__
 Self-destruction. What are you still doing here? Go away!
 
 ## Roadmap 
-  - [ ] Find answer of the multiverse with hash #42 (weightless).
-  	- [ ] Implement a representation of fractal geometry with the set of complex numbers.
-  	- [ ] Encode a genetic algorithm with number theory and numerical analysis. 
-  	- [ ] Try understand what the main fuckin' developer is doing.
-  - [X] Pull random musics of the user data.
-  - [X] Make some interactive graph (I made two).
+- [ ] Find answer of the multiverse with hash #42 (weightless).
+  - [ ] Implement a representation of fractal geometry with the set of complex numbers.
+  - [ ] Encode a genetic algorithm with number theory and numerical analysis. 
+  - [ ] Try understand what the main fuckin' developer is doing.
+- [X] Pull random musics of the user data.
+- [X] Make some interactive graph (I made two).
 
 
 ## Credits
-  - Me (Manoel Vilela)
+  
+* Me (Manoel Vilela)
 
 ## License
 
-Creative Commons
+[Creative Commons ShareALike](LICENSE)
