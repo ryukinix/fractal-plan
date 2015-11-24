@@ -74,7 +74,9 @@ d_green = not_null(-2, 2)
 d_blue = not_null(-2, 2)
 
 # Sound
-musics = music_generator('%s' % expanduser("~/"))
+home = expanduser('~/')
+folders = [join(home, x) for x in listdir(home) if x.lower() in ('música', 'music')]
+musics = music_generator(folders.pop(0))
 pause = False
 dx, dy = 0, 0
 
