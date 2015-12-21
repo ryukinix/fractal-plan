@@ -10,6 +10,26 @@ from random import shuffle
 from os import listdir
 from os.path import join, isdir, isfile, expanduser
 from mimetypes import guess_type
+from optparse import OptionParser
+
+home = expanduser('~/')
+default_path = [
+    join(home, x) for x in listdir(home) if x.lower() in ('música', 'music')
+]
+parser = OptionParser()
+parser.add_option(
+    '-m', '--musicdir',
+    dest='music_path',
+    default=default_path.pop(),
+    help="The path to search musics"
+)
+parser.add_option(
+    '-n', '--nomusic',
+    dest='nomusic',
+    default=False,
+    help='Disable music play and search',
+    nargs=0
+)
 
 
 def music_generator(path):
@@ -48,7 +68,7 @@ WIDTH, HEIGHT = int(info.current_w // 1.2), int(info.current_h // 1.2)
 size = WIDTH, HEIGHT
 screen = pygame.display.set_mode(size)
 
-pygame.display.set_caption("Animation")
+pygame.display.set_caption("Fractal-plan Exposition")
 pygame.mouse.set_visible(False)
 
 # Some colors
@@ -74,10 +94,13 @@ d_green = not_null(-2, 2)
 d_blue = not_null(-2, 2)
 
 # Sound
-home = expanduser('~/')
-folders = [join(home, x) for x in listdir(home) if x.lower() in ('música', 'music')]
-musics = music_generator(folders.pop(0))
+opt, _ = parser.parse_args()
 pause = False
+if opt.nomusic is not False:
+    pause = True
+else:
+    musics = music_generator(opt.music_path)
+
 dx, dy = 0, 0
 
 # -------- Main Program Loop -----------
@@ -90,12 +113,14 @@ while not done:
             if event.key == K_ESCAPE:
                 done = True
             elif event.key == K_RETURN:
-                if pause is False:
-                    position_music = float(pygame.mixer.music.get_pos() / 1000)
-                    pygame.mixer.music.pause()
-                else:
-                    pygame.mixer.music.play(0, position_music)
-                pause = ~pause
+                if opt.nomusic is False:
+                    if pause is False:
+                        unnormalized_position = pygame.mixer.music.get_pos()
+                        position_music = float(unnormalized_position / 1000)
+                        pygame.mixer.music.pause()
+                    else:
+                        pygame.mixer.music.play(0, position_music)
+                    pause = ~pause
             elif event.key == K_TAB:
                 pygame.mixer.music.stop()
                 pause = False
@@ -112,10 +137,10 @@ while not done:
             elif event.key == K_RIGHT:
                 dx += 5
             elif event.key == K_EQUALS:
-                print("[operation]+n_vertex: %d" % n_vertex)
+                print("[operation]+n_vertex: {}".format(n_vertex))
                 n_vertex += 1
             elif event.key == K_MINUS:
-                print("[operation]-n_vertex: %d" % n_vertex)
+                print("[operation]-n_vertex: {}".format(n_vertex))
                 n_vertex -= 1
 
     # Play if not busy
@@ -124,9 +149,9 @@ while not done:
             music = next(musics)
             pygame.mixer.music.load(music)
             pygame.mixer.music.play(0, 0.0)
-            print("[operation]Loaded: %s" % music)
+            print("[operation]Loaded: {!r}".format(music))
         except pygame.error:
-            print("[error]Not possible to load this file: %s" % music)
+            print("[error]Not possible to load this file: {!r}".format(music))
             continue
 
     screen.fill(BLACK)
