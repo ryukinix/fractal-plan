@@ -33,17 +33,24 @@ This a beautiful thing. Why you don't only execute this? Fuck the explanation. J
   
 * `python fractal.py`
 
+Optionals:
+
+* `python fractal.py --musicdir <your-music--content>`
+* `python fractal.py --nomusic`
+
 __These are the fuckin' action keys:__
 
-| Key  |      Action       |
-|------| ----------------  |
-| ESC  |  Exit             |
-|  +   |  Plus vertex      |
-|  -   |  Minus vertex	   |
-|  ←   |  Left?            |
-|  ↑   |  Up?              |
-|  →   |  Right?!          |
-|  ↓   |  Down?            |
+| Key   |      Action       |
+|-------| ------------------|
+| ESC   |  Exit             |
+|  +    |  Plus vertex      |
+|  -    |  Minus vertex     |
+|  ←    |  Left?            |
+|  ↑    |  Up?              |
+|  →    |  Right?!          |
+|  ↓    |  Down?            |
+| ENTER |  Play/Stop Music  |
+|  TAB  |  Next music       |
 	
 ## Contributing
 
