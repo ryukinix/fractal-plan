@@ -1,9 +1,7 @@
-#!/usr/bin/env python2
-#  -*- coding: utf-8  -*-
-
-from __future__ import division, print_function
+#!/usr/bin/env python3
 import pygame
-from pygame.locals import *
+from pygame.locals import QUIT, KEYDOWN, K_ESCAPE, K_RETURN, \
+    K_TAB, K_BACKSPACE, K_UP, K_LEFT, K_DOWN, K_RIGHT, K_EQUALS, K_MINUS
 from math import sqrt, cos, sin, pi
 from random import randint as random
 from random import shuffle
@@ -13,7 +11,7 @@ from mimetypes import guess_type
 from optparse import OptionParser
 
 home = expanduser('~/')
-default_path = [
+default_path = [''] + [
     join(home, x) for x in listdir(home) if x.lower() in ('música', 'music')
 ]
 parser = OptionParser()
@@ -42,9 +40,7 @@ def music_generator(path):
             if mime is not None and 'audio' in mime:
                 yield new_file
         elif isdir(new_file):
-            new_path = join(path, f)
-            for other_music in music_generator(new_path):
-                yield other_music
+            yield from music_generator(join(path, f))
 
 
 def not_null(a, b):
