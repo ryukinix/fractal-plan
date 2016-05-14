@@ -170,8 +170,8 @@ while not done:
         lastY = y
 
     # the secondoray graphs
-    weights = [(1/8, 9/11), (7/8, 9/11),
-               (1/8, 2/11), (7/8, 2/11)]
+    weights = [(1 / 8, 9 / 11), (7 / 8, 9 / 11),
+               (1 / 8, 2 / 11), (7 / 8, 2 / 11)]
     for w_x, w_y in weights:
         lastX, lastY = WIDTH * w_x, HEIGHT * w_y
         color = (blue_value, red_value, green_value)
@@ -180,11 +180,11 @@ while not done:
             angle_p = angle_polyg(h)
             for i in range(1, h + 1):
                 angle = abs(angle_p - 180) * i * (angle_change ** 1.8)
-                mad_factor = sum(map(abs, (blue_value, red_value, green_value)))
-                xc = (WIDTH * w_x + radius * cos(angle * pi / 180) 
-                      + 2 * n_vertex * cos(mad_factor * pi / 180))
-                yc = (HEIGHT * w_y + radius * sin(angle * pi / 180) 
-                      + 2 * n_vertex * sin(mad_factor * pi / 180))
+                mad_factor = sum(map(abs, color))
+                xc = (WIDTH * w_x + radius * cos(angle * pi / 180) +
+                      2 * n_vertex * cos(mad_factor * pi / 180))
+                yc = (HEIGHT * w_y + radius * sin(angle * pi / 180) +
+                      2 * n_vertex * sin(mad_factor * pi / 180))
 
                 pos = xc + dx, yc - dy
                 last_position = lastX - dx, lastY + dy
