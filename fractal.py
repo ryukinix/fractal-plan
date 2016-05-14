@@ -169,25 +169,29 @@ while not done:
         lastX = x
         lastY = y
 
-    # the second graph
-    lastX, lastY = WIDTH * 7 // 8, HEIGHT * 9 // 11
-    color = (blue_value, red_value, green_value)
-    radius = 50
-    for h in range(3, n_vertex // 3):
-        for i in range(1, h + 1):
-            angle = abs(angle_polyg(h) - 180) * i * (angle_change ** 1.8)
-            xc = WIDTH * 7 // 8 + radius * cos(angle * pi / 180)
-            yc = HEIGHT * 9 // 11 + radius * sin(angle * pi / 180)
+    # the secondoray graphs
+    weights = [(1/8, 9/11), (7/8, 9/11),
+               (1/8, 2/11), (7/8, 2/11)]
+    for w_x, w_y in weights:
+        lastX, lastY = WIDTH * w_x, HEIGHT * w_y
+        color = (blue_value, red_value, green_value)
+        radius = 50
+        for h in range(3, n_vertex // 3):
+            angle_p = angle_polyg(h)
+            for i in range(1, h + 1):
+                angle = abs(angle_p - 180) * i * (angle_change ** 1.8)
+                xc = WIDTH * w_x + radius * cos(angle * pi / 180)
+                yc = HEIGHT * w_y + radius * sin(angle * pi / 180)
 
-            pos = xc + dx, yc - dy
-            last_position = lastX - dx, lastY + dy
+                pos = xc + dx, yc - dy
+                last_position = lastX - dx, lastY + dy
 
-            pygame.draw.line(screen, color, pos, last_position)
+                pygame.draw.line(screen, color, pos, last_position)
 
-            lastX = xc
-            lastY = yc
+                lastX = xc
+                lastY = yc
 
-        radius += 5
+            radius += 5
 
     # Change sense if the colors are out of the range(0, 255)
     if red_value + d_red < 0 or red_value + d_red > 255:
