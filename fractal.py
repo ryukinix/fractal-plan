@@ -105,7 +105,7 @@ while not done:
         if event.type == QUIT:  # If user clicked close
             done = True  # Flag that we are done so we exit this loop
         if event.type == KEYDOWN:
-            if not options.music:
+            if options.music:
                 if event.key == K_RETURN:
                     if pause is False:
                         unnormalized_position = pygame.mixer.music.get_pos()
