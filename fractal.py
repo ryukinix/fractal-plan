@@ -2,7 +2,7 @@
 import pygame
 from pygame.locals import QUIT, KEYDOWN, K_ESCAPE, K_RETURN, \
     K_TAB, K_BACKSPACE, K_UP, K_LEFT, K_DOWN, K_RIGHT, K_EQUALS, K_MINUS
-from math import sqrt, cos, sin, pi, tan
+from math import sqrt, cos, sin, pi
 from random import randint
 from random import shuffle
 from os import listdir
@@ -154,10 +154,10 @@ while not done:
 
     # the main graph
     for i in range(n_vertex):
-        theta = float(angle_change * i)
-        radius = float(max_radius * sqrt(i / n_vertex))
-        x = int(WIDTH // 2 + radius * cos(theta))
-        y = int(HEIGHT // 2 + radius * sin(theta))
+        theta = angle_change * i
+        radius = max_radius * sqrt(i / n_vertex)
+        x = WIDTH // 2 + radius * cos(theta)
+        y = HEIGHT // 2 + radius * sin(theta)
 
         color = (red_value, green_value, blue_value)
         last_position = (lastX + dx, lastY - dy)
