@@ -2,7 +2,7 @@
 import pygame
 from pygame.locals import QUIT, KEYDOWN, K_ESCAPE, K_RETURN, \
     K_TAB, K_BACKSPACE, K_UP, K_LEFT, K_DOWN, K_RIGHT, K_EQUALS, K_MINUS
-from math import sqrt, cos, sin, pi
+from math import sqrt, cos, sin, pi, tan
 from random import randint
 from random import shuffle
 from os import listdir
@@ -180,8 +180,11 @@ while not done:
             angle_p = angle_polyg(h)
             for i in range(1, h + 1):
                 angle = abs(angle_p - 180) * i * (angle_change ** 1.8)
-                xc = WIDTH * w_x + radius * cos(angle * pi / 180)
-                yc = HEIGHT * w_y + radius * sin(angle * pi / 180)
+                mad_factor = sum(map(abs, (blue_value, red_value, green_value)))
+                xc = (WIDTH * w_x + radius * cos(angle * pi / 180) 
+                      + 2 * n_vertex * cos(mad_factor * pi / 180))
+                yc = (HEIGHT * w_y + radius * sin(angle * pi / 180) 
+                      + 2 * n_vertex * sin(mad_factor * pi / 180))
 
                 pos = xc + dx, yc - dy
                 last_position = lastX - dx, lastY + dy
