@@ -12,14 +12,14 @@ Everything you'll see here is a lot of **mad** stuff. Careful to not lose your s
 
 You will **need** of:
 
-* [Python](https://www.python.org/)
+* [Python3](https://www.python.org/)
 * [Pygame](http://www.pygame.org/download.shtml)
 
 To install pygame in linux debian-based you have two options:
 
 * Using **apt**:
   ```bash
-  sudo apt-get install python-pygame
+  sudo apt-get install python3-pygame
   ```
 
 * Using **pip**:
@@ -35,8 +35,8 @@ This a beautiful thing. Why you don't only execute this? Fuck the explanation. J
 
 Optionals:
 
-* `python fractal.py --musicdir <your-music--content>`
-* `python fractal.py --nomusic`
+* `python fractal.py --music-dir <your-music--directory-content>`
+* `python fractal.py --no-music`
 
 __These are the fuckin' action keys:__
 
