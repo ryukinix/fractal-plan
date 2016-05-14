@@ -3,30 +3,31 @@ import pygame
 from pygame.locals import QUIT, KEYDOWN, K_ESCAPE, K_RETURN, \
     K_TAB, K_BACKSPACE, K_UP, K_LEFT, K_DOWN, K_RIGHT, K_EQUALS, K_MINUS
 from math import sqrt, cos, sin, pi
-from random import randint as random
+from random import randint
 from random import shuffle
 from os import listdir
 from os.path import join, isdir, isfile, expanduser
 from mimetypes import guess_type
-from optparse import OptionParser
+from argparse import ArgumentParser
 
 home = expanduser('~/')
 default_path = [''] + [
     join(home, x) for x in listdir(home) if x.lower() in ('música', 'music')
 ]
-parser = OptionParser()
-parser.add_option(
-    '-m', '--musicdir',
+parser = ArgumentParser()
+parser.add_argument(
+    '-m', '--music-dir',
     dest='music_path',
     default=default_path.pop(),
-    help="The path to search musics"
+    help="The path to search musics",
+    type=str
 )
-parser.add_option(
-    '-n', '--nomusic',
-    dest='nomusic',
-    default=False,
+parser.add_argument(
+    '-n', '--no-music',
+    dest='music',
+    default=True,
     help='Disable music play and search',
-    nargs=0
+    action='store_false'
 )
 
 
@@ -44,10 +45,8 @@ def music_generator(path):
 
 
 def not_null(a, b):
-    x = random(a, b)
-    if x != 0:
-        return x
-    return not_null(a, b)
+    x = randint(a, b)
+    return x if x != 0 else not_null(a, b)
 
 
 def angle_polyg(n_vertex):
@@ -77,12 +76,12 @@ dn = 10
 max_radius = WIDTH // 4
 
 # Determine the configuration of initial spiral
-angle_change = random(90, 180)
+angle_change = randint(90, 180)
 
 # Colors of spiral
-red_value = random(0, 255)
-green_value = random(0, 255)
-blue_value = random(0, 255)
+red_value = randint(0, 255)
+green_value = randint(0, 255)
+blue_value = randint(0, 255)
 
 # How the colors will are change
 d_red = not_null(-2, 2)
@@ -90,12 +89,12 @@ d_green = not_null(-2, 2)
 d_blue = not_null(-2, 2)
 
 # Sound
-opt, _ = parser.parse_args()
+options = parser.parse_args()
 pause = False
-if opt.nomusic is not False:
+if not options.music:
     pause = True
 else:
-    musics = music_generator(opt.music_path)
+    musics = music_generator(options.music_path)
 
 dx, dy = 0, 0
 
@@ -106,24 +105,24 @@ while not done:
         if event.type == QUIT:  # If user clicked close
             done = True  # Flag that we are done so we exit this loop
         if event.type == KEYDOWN:
-            if event.key == K_ESCAPE:
-                done = True
-            elif event.key == K_RETURN:
-                if opt.nomusic is False:
+            if not options.music:
+                if event.key == K_RETURN:
                     if pause is False:
                         unnormalized_position = pygame.mixer.music.get_pos()
                         position_music = float(unnormalized_position / 1000)
                         pygame.mixer.music.pause()
                     else:
                         pygame.mixer.music.play(0, position_music)
-                    pause = ~pause
-            elif event.key == K_TAB:
-                pygame.mixer.music.stop()
-                pause = False
+                    pause = not pause
+                elif event.key == K_TAB:
+                    pygame.mixer.music.stop()
+                    pause = False
+            if event.key == K_ESCAPE:
+                done = True
             elif event.key == K_BACKSPACE:
                 if n_vertex < 180 or n_vertex > 360:
                     dn = -dn
-                n_vertex += int(sin((n_vertex - 180) * 3.14 / 180) * 5)
+                n_vertex += int(sin((n_vertex - 180) * pi / 180) * 5)
             elif event.key == K_UP:
                 dy -= 5
             elif event.key == K_LEFT:
@@ -144,7 +143,7 @@ while not done:
         try:
             music = next(musics)
             pygame.mixer.music.load(music)
-            pygame.mixer.music.play(0, 0.0)
+            pygame.mixer.music.play(-1, 0.0)
             print("[operation]Loaded: {!r}".format(music))
         except pygame.error:
             print("[error]Not possible to load this file: {!r}".format(music))
